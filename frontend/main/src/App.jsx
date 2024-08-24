@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import axios from "axios";
+import ConnectedDevices from "./components/Dash/ConnectedDevices/Devices";
+import Bandwidth from "./components/Band/BandWidth";
+import IPAddresses from "./components/Dash/IPs/IP";
+import DNSServers from "./components/DNS/DNS";
+import NetworkInterfaces from "./components/Net/Network";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [networkInfo, setNetworkInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/network_info"
+        );
+        setNetworkInfo(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError("Error fetching network information");
+        setLoading(false);
+        console.error(error);
+      }
+    };
+
+    fetchData();
+    const interval = setInterval(fetchData, 50000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  if (loading) return <div>Loading...This might take few seconds</div>;
+  if (error) return <div>{error}</div>;
+  if (!networkInfo) return <div>No data available</div>;
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <h1>LAN Analysis</h1>
+      <div className="container">
+        <ConnectedDevices
+          devices={networkInfo.devices}
+          pingResults={networkInfo.ping_results}
+        />
+        <Bandwidth bandwidth={networkInfo.bandwidth} />
+        <IPAddresses
+          localIp={networkInfo.local_ip}
+          publicIp={networkInfo.public_ip}
+        />
+        <DNSServers dnsServers={networkInfo.dns_servers} />
+        <NetworkInterfaces networkInterfaces={networkInfo.network_interfaces} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

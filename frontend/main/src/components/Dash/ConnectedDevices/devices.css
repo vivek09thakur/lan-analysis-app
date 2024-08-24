@@ -1,0 +1,10 @@
+.devices{
+    width: auto;
+    /* margin: 1% auto; */
+}
+
+.devices .title{
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+

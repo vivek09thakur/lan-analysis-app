@@ -28,7 +28,10 @@ def ping_device(ip):
 
 def get_bandwidth():
     net_io = psutil.net_io_counters()
-    return f"{net_io.bytes_sent / (1024 * 1024):.2f} MB sent, {net_io.bytes_recv / (1024 * 1024):.2f} MB received"
+    return {
+        "sent": f"{net_io.bytes_sent / (1024 * 1024):.2f} MB",
+        "received": f"{net_io.bytes_recv / (1024 * 1024):.2f} MB"
+    }
 
 def get_local_ip():
     try:

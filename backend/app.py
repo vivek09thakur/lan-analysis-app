@@ -28,6 +28,12 @@ def get_network_info():
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+    
+@app.after_request
+def add_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)
