@@ -18,6 +18,14 @@ A python based command line script that enables the user to analyze the devices 
    cd lan-analysis-backend
 ```
 
+### Run Backend
+
+- Change to backend directory.
+
+```bash
+   cd backend
+```
+
 - Create virtual environment.
 
 ```bash
@@ -36,8 +44,40 @@ A python based command line script that enables the user to analyze the devices 
    pip install -r requirements.txt
 ```
 
-- Run the script.
+- Run Flask server.
 
 ```bash
    python app.py
+```
+
+- Or Run command line script.
+
+```bash
+   python cli.py
+```
+
+### Run Frontend
+
+- Now open another terminal and change the directory to frontend.
+
+```bash
+   cd frontend
+```
+
+- Navigate to `frontend\main` directory.
+
+```bash
+   cd main
+```
+
+- Install the dependencies.
+
+```bash
+   npm install
+```
+
+- Run the React server.
+
+```bash
+   npm run dev
 ```
