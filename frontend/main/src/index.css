@@ -4,8 +4,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #151921;
+  color: rgba(226, 226, 226, 0.87);
+  background-color:#151720;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -20,7 +20,7 @@
   display:grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
-  padding: 1rem;
+  padding: 5rem .5rem;
 }
 
 @media screen and (max-width:680px) {

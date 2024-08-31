@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import ConnectedDevices from "./components/Dash/ConnectedDevices/Devices";
 import Bandwidth from "./components/Band/BandWidth";
@@ -13,26 +13,26 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/network_info"
-        );
-        setNetworkInfo(response.data);
-        setLoading(false);
-      } catch (error) {
-        setError("Error fetching network information");
-        setLoading(false);
-        console.error(error);
-      }
-    };
+  const fetchData = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/network_info"
+      );
+      setNetworkInfo(response.data);
+      setLoading(false);
+    } catch (error) {
+      setError("Error fetching network information");
+      setLoading(false);
+      console.error(error);
+    }
+  }, []);
 
+  useEffect(() => {
     fetchData();
     const interval = setInterval(fetchData, 50000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [fetchData]);
 
   if (loading) return <div>Loading...This might take few seconds</div>;
   if (error) return <div>{error}</div>;
