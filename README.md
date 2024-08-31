@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This markdown file provides an overview of a web application that analyzes the LAN network and offers various information, including:
+A python based local web app with React.js UI that analyzes the LAN network (designed for star topology) and offers various information, including:
 
 - A list of all devices connected to the hub.
 - Bandwidth usage of the hub.
