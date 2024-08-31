@@ -53,7 +53,7 @@ function Bandwidth({ bandwidth }) {
 
   return (
     <section className="mb-6">
-      <h2 className="text-2xl font-semibold mb-2">Bandwidth</h2>
+      <h2 className="text-2xl font-semibold mb-2">BANDWIDTH</h2>
       {dataPoints.length > 0 ? (
         <Line data={data} />
       ) : (

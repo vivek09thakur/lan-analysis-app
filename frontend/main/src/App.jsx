@@ -5,6 +5,8 @@ import Bandwidth from "./components/Band/BandWidth";
 import IPAddresses from "./components/Dash/IPs/IP";
 import DNSServers from "./components/DNS/DNS";
 import NetworkInterfaces from "./components/Net/Network";
+import Usage from "./components/DataUsage/Usage";
+import "./App.css";
 
 function App() {
   const [networkInfo, setNetworkInfo] = useState(null);
@@ -38,19 +40,20 @@ function App() {
 
   return (
     <>
-      <h1>LAN Analysis</h1>
+      <h1 className="app-name">LAN Analysis</h1>
       <div className="container">
         <ConnectedDevices
           devices={networkInfo.devices}
           pingResults={networkInfo.ping_results}
         />
+        <Usage dataUsage={networkInfo.total_data_usage} />
         <Bandwidth bandwidth={networkInfo.bandwidth} />
+        <NetworkInterfaces networkInterfaces={networkInfo.network_interfaces} />
         <IPAddresses
           localIp={networkInfo.local_ip}
           publicIp={networkInfo.public_ip}
         />
         <DNSServers dnsServers={networkInfo.dns_servers} />
-        <NetworkInterfaces networkInterfaces={networkInfo.network_interfaces} />
       </div>
     </>
   );

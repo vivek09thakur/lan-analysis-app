@@ -1,9 +1,6 @@
 import PropTypes from "prop-types";
 
 function DNSServers({ dnsServers }) {
-  DNSServers.propTypes = {
-    dnsServers: PropTypes.array,
-  };
   return (
     <section className="mb-6">
       <h2 className="text-2xl font-semibold mb-2">DNS Servers</h2>
@@ -19,5 +16,9 @@ function DNSServers({ dnsServers }) {
     </section>
   );
 }
+
+DNSServers.propTypes = {
+  dnsServers: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+};
 
 export default DNSServers;

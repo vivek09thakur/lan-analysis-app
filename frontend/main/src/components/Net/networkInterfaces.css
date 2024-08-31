@@ -1,64 +1,32 @@
 .interface-table {
-    width: 100%;
-    border-collapse: collapse;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
     margin-top: 1rem;
     font-family: 'Arial', sans-serif;
 }
 
-.interface-table thead {
-    background-color: #1a1a1a;
-}
-
-.interface-table th,
-.interface-table td {
-    padding: 12px 15px;
-    text-align: left;
-}
-
-.interface-table th {
-    background-color: #333333;
+.interface-table .interface-box {
+    flex: 1 1 calc(33.333% - 1rem);
+    border: 1px solid #e7e7e728;
+    border-radius: 2px;
+    padding: 15px;
     color: #ffffff;
+}
+
+.interface-box h3 {
+    font-size: .8rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    padding-bottom: 5px;
 }
 
-.interface-table tbody tr:nth-child(even) {
-    background-color: #222222;
+.interface-box p {
+    font-size: 12px;
 }
 
-.interface-table tbody tr:nth-child(odd) {
-    background-color: #1f1f1f;
-}
-
-.interface-table tbody tr:hover {
+.interface-box:hover {
     background-color: #444444;
-}
-
-.interface-table td {
-    border-bottom: 1px solid #333333;
-    color: #ffffff;
-}
-
-.interface-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.interface-table th:first-child,
-.interface-table td:first-child {
-    padding-left: 20px;
-}
-
-.interface-table th:last-child,
-.interface-table td:last-child {
-    padding-right: 20px;
-}
-
-.interface-table td {
-    font-size: 14px;
-}
-
-.interface-table th {
-    font-size: 16px;
 }
 
 .section-title {
@@ -66,4 +34,22 @@
     font-weight: bold;
     margin-bottom: 1.5rem;
     color: #ffffff;
+}
+
+@media (max-width: 768px) {
+    .interface-table .interface-box {
+        flex-basis: 100%;
+    }
+
+    .interface-box h3 {
+        font-size: 14px;
+    }
+
+    .interface-box p {
+        font-size: 12px;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
 }

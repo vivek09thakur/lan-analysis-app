@@ -5,9 +5,11 @@ function IPAddresses({ localIp, publicIp }) {
     localIp: PropTypes.string,
     publicIp: PropTypes.string,
   };
+  
+  
   return (
-    <section className="mb-6">
-      <h2 className="text-2xl font-semibold mb-2">IP Addresses</h2>
+    <section>
+      <h2>IP Addresses</h2>
       <p>Local IP: {localIp || "Not available"}</p>
       <p>Public IP: {publicIp || "Not available"}</p>
     </section>

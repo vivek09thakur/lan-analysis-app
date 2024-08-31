@@ -1,0 +1,8 @@
+.app-name{
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    padding: .5rem 0;
+    border-bottom: 1px solid #5b616c;
+    color: #5b616c;
+}

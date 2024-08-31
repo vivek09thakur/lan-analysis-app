@@ -5,18 +5,26 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #151921;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --td_bg: #5b616c;
+  --th_bg: #1e2228;
+  max-width: 100dvw;
 }
-
 
 .container{
   display:grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
-  padding: 2rem;
+  padding: 1rem;
+}
+
+@media screen and (max-width:680px) {
+  .container{
+    grid-template-columns: 1fr;
+  }
 }

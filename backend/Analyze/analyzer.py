@@ -74,3 +74,10 @@ def get_network_interfaces():
                 interface_info[interface].append(f"MAC: {addr.address}")
     return interface_info
 
+
+def total_internet_consumed():
+    try:
+        net_io = psutil.net_io_counters()
+        return f"{net_io.bytes_sent / (1024 * 1024):.2f} MB"
+    except Exception as e:
+        return f"Error getting total internet consumed: {e}"

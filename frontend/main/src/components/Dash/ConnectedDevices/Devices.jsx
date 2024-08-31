@@ -51,7 +51,7 @@ function ConnectedDevices({ devices, pingResults }) {
 
   return (
     <section className="devices">
-      <h2 className="title">Connected Devices</h2>
+      <h2 className="title">Connected Devices Availability</h2>
       <div className="device-list">
         {devices && devices.length > 0 ? (
           <Bar data={data} />

@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
-from Analyze.analyzer import get_connected_devices, ping_device, get_bandwidth, get_local_ip, get_public_ip, get_dns_servers, get_network_interfaces
+from Analyze.analyzer import get_connected_devices, ping_device, get_bandwidth, get_local_ip, get_public_ip, get_dns_servers, get_network_interfaces,total_internet_consumed
 
 app = Flask(__name__)
 CORS(app)
@@ -14,6 +14,7 @@ def get_network_info():
         public_ip = get_public_ip()
         dns_servers = get_dns_servers()
         network_interfaces = get_network_interfaces()
+        total_data_usage = total_internet_consumed()
 
         ping_results = {device: ping_device(device) for device in devices}
 
@@ -24,7 +25,8 @@ def get_network_info():
             'local_ip': local_ip,
             'public_ip': public_ip,
             'dns_servers': dns_servers,
-            'network_interfaces': network_interfaces
+            'network_interfaces': network_interfaces,
+            'total_data_usage': total_data_usage 
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
