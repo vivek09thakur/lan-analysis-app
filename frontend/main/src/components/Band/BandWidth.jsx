@@ -51,11 +51,32 @@ function Bandwidth({ bandwidth }) {
     ],
   };
 
+  const options = {
+    scales: {
+      x: {
+        grid: {
+          color: 'rgba(200, 200, 200, 0.1)',
+        },
+        ticks: {
+          color: 'rgba(200, 200, 200, 0.8)',
+        },
+      },
+      y: {
+        grid: {
+          color: 'rgba(200, 200, 200, 0.1)',
+        },
+        ticks: {
+          color: 'rgba(200, 200, 200, 0.8)',
+        },
+      },
+    },
+  };
+
   return (
     <section className="mb-6">
       <h2 className="text-2xl font-semibold mb-2">BANDWIDTH</h2>
       {dataPoints.length > 0 ? (
-        <Line data={data} />
+        <Line data={data} options={options} />
       ) : (
         <p>No bandwidth information available</p>
       )}

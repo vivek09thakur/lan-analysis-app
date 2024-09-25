@@ -16,15 +16,28 @@ def ping_device(ip):
         output = subprocess.check_output(
             f"ping -n 4 {ip}", shell=True
         ).decode()
-        packet_loss = re.search(r'(\d+)% loss', output)
-        if packet_loss:
-            packet_loss = packet_loss.group(1)
-        else:
-            packet_loss = "0"
-        return f"Packet loss: {packet_loss}% in {ip}"
+
+        packet_loss_match = re.search(r'(\d+)% loss', output)
+        packet_loss = int(packet_loss_match.group(1)) if packet_loss_match else 0
+        
+        packets_received_match = re.search(r'Received = (\d+)', output)
+        packets_received = int(packets_received_match.group(1)) if packets_received_match else 0
+        
+        return {
+            "ip": ip,
+            "packet_loss": packet_loss,
+            "packets_received": packets_received,
+            "status": "reachable" if packet_loss < 100 else "unreachable"
+        }
 
     except subprocess.CalledProcessError:
-        return "Device is unreachable"
+        return {
+            "ip": ip,
+            "packet_loss": 100,
+            "packets_received": 0,
+            "status": "unreachable"
+        }
+
 
 def get_bandwidth():
     net_io = psutil.net_io_counters()

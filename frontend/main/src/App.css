@@ -4,9 +4,9 @@
     text-transform: uppercase;
     padding: 1rem 0;
     border-bottom: 1px solid #5b616c57;
-    color: #5b616c;
+    color: #d4d4d4;
     position: fixed;
+    background: #1a1a1a;
     top: 0;
-    background-color: #1e2228;
     margin: 0;
 }

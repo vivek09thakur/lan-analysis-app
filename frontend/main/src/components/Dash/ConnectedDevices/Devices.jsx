@@ -4,34 +4,30 @@ import PropTypes from "prop-types";
 import "./devices.css";
 
 function ConnectedDevices({ devices, pingResults }) {
-  ConnectedDevices.propTypes = {
-    devices: PropTypes.array,
-    pingResults: PropTypes.object,
-  };
-
-  const [pingData, setPingData] = useState([]);
+  const [availabilityData, setAvailabilityData] = useState([]);
   const [labels, setLabels] = useState([]);
-  const [colors, setColors] = useState([]);
+  const [backgroundColors, setBackgroundColors] = useState([]);
+  const [borderColors, setBorderColors] = useState([]);
+
+  const getColorByAvailability = (availability, opacity) =>
+    availability === 100
+      ? `rgba(75, 192, 192, ${opacity})`
+      : `rgba(255, 99, 132, ${opacity})`;
 
   useEffect(() => {
     if (devices && Array.isArray(devices) && pingResults) {
-      const pings = devices.map((device) => {
+      const getAvailability = (device) => {
         const pingResult = pingResults[device];
-        const packetLossMatch = pingResult.match(/Packet loss: (\d+)%/);
-        const packetLoss = packetLossMatch ? parseInt(packetLossMatch[1]) : 100;
+        return pingResult ? (pingResult.packets_received / 4) * 100 : 0;
+      };
 
-        return packetLoss;
-      });
+      const availability = devices.map(getAvailability);
+      const backgroundColors = availability.map((avail) => getColorByAvailability(avail, 0.6));
+      const borderColors = availability.map((avail) => getColorByAvailability(avail, 1));
 
-      const backgroundColors = pings.map((loss) =>
-        loss === 0 ? "rgba(75, 192, 192, 0.6)" : "rgba(255, 99, 132, 0.6)"
-      );
-      const borderColors = pings.map((loss) =>
-        loss === 0 ? "rgba(75, 192, 192, 1)" : "rgba(255, 99, 132, 1)"
-      );
-
-      setPingData(pings.map((loss) => (loss === 0 ? 100 : loss)));
-      setColors({ backgroundColors, borderColors });
+      setAvailabilityData(availability);
+      setBackgroundColors(backgroundColors);
+      setBorderColors(borderColors);
       setLabels(devices);
     }
   }, [devices, pingResults]);
@@ -40,19 +36,21 @@ function ConnectedDevices({ devices, pingResults }) {
     labels: labels,
     datasets: [
       {
-        label: "Packet Loss/Availability (%)",
-        data: pingData,
-        backgroundColor: colors.backgroundColors,
-        borderColor: colors.borderColors,
+        label: "Availability (%)",
+        data: availabilityData,
+        backgroundColor: backgroundColors,
+        borderColor: borderColors,
         borderWidth: 1,
       },
     ],
   };
 
   return (
-    <section className="devices">
-      <h2 className="title">Connected Devices Availability</h2>
-      <div className="device-list">
+    <section className="connected-devices">
+      <h2 className="connected-devices__title">
+        Connected Devices Availability
+      </h2>
+      <div className="connected-devices__chart">
         {devices && devices.length > 0 ? (
           <Bar data={data} />
         ) : (
@@ -62,5 +60,10 @@ function ConnectedDevices({ devices, pingResults }) {
     </section>
   );
 }
+
+ConnectedDevices.propTypes = {
+  devices: PropTypes.array.isRequired,
+  pingResults: PropTypes.object.isRequired,
+};
 
 export default ConnectedDevices;
